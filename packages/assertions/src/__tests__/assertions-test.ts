@@ -2,7 +2,7 @@ import {
     assertKeyExporterIsAvailable,
     assertSigningCapabilityIsAvailable,
     assertVerificationCapabilityIsAvailable,
-} from '../guard';
+} from '../assertions';
 
 describe('assertKeyExporterIsAvailable()', () => {
     it('resolves to `undefined` without throwing', async () => {
@@ -39,13 +39,13 @@ describe('assertKeyExporterIsAvailable()', () => {
 });
 
 describe('assertKeyGenerationIsAvailable()', () => {
-    let assertKeyGenerationIsAvailable: typeof import('../guard').assertKeyGenerationIsAvailable;
+    let assertKeyGenerationIsAvailable: typeof import('../assertions').assertKeyGenerationIsAvailable;
     beforeEach(async () => {
         await jest.isolateModulesAsync(async () => {
             const guardModulePromise =
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                import('../guard');
+                import('../assertions');
             assertKeyGenerationIsAvailable = (await guardModulePromise).assertKeyGenerationIsAvailable;
         });
     });
