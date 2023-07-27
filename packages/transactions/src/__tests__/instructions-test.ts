@@ -1,7 +1,7 @@
 import 'test-matchers/toBeFrozenObject';
 
 import { IInstruction } from '@solana/instructions';
-import { Base58EncodedAddress } from '@solana/keys';
+import { Base58EncodedAddress } from '@solana/addresses';
 
 import { appendTransactionInstruction, prependTransactionInstruction } from '../instructions';
 import { ITransactionWithSignatures } from '../signatures';
