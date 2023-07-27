@@ -4,8 +4,8 @@ import {
     Base58EncodedAddress,
     getBase58EncodedAddressCodec,
     getBase58EncodedAddressFromPublicKey,
-    signBytes,
-} from '@solana/keys';
+} from '@solana/addresses';
+import { signBytes } from '@solana/keys';
 
 import { Blockhash } from '../blockhash';
 import { CompiledMessage, compileMessage } from '../message';

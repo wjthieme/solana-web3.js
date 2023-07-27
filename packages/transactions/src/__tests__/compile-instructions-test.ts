@@ -1,5 +1,5 @@
 import { AccountRole, IInstruction } from '@solana/instructions';
-import { Base58EncodedAddress } from '@solana/keys';
+import { Base58EncodedAddress } from '@solana/addresses';
 
 import { OrderedAccounts } from '../accounts';
 import { getCompiledInstructions } from '../compile-instructions';

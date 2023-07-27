@@ -1,7 +1,7 @@
 import 'test-matchers/toBeFrozenObject';
 
 import { AccountRole, ReadonlySignerAccount, WritableAccount } from '@solana/instructions';
-import { Base58EncodedAddress } from '@solana/keys';
+import { Base58EncodedAddress } from '@solana/addresses';
 
 import { Blockhash, ITransactionWithBlockhashLifetime } from '../blockhash';
 import {
