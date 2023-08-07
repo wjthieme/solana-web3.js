@@ -11,6 +11,7 @@ import { GetBlockTimeApi } from './getBlockTime';
 import { GetEpochInfoApi } from './getEpochInfo';
 import { GetEpochScheduleApi } from './getEpochSchedule';
 import { GetFirstAvailableBlockApi } from './getFirstAvailableBlock';
+import { GetHealthApi } from './getHealth';
 import { GetInflationRewardApi } from './getInflationReward';
 import { GetLatestBlockhashApi } from './getLatestBlockhash';
 import { GetMaxRetransmitSlotApi } from './getMaxRetransmitSlot';
@@ -43,6 +44,7 @@ export type SolanaRpcMethods = GetAccountInfoApi &
     GetEpochInfoApi &
     GetEpochScheduleApi &
     GetFirstAvailableBlockApi &
+    GetHealthApi &
     GetInflationRewardApi &
     GetLatestBlockhashApi &
     GetMaxRetransmitSlotApi &
@@ -61,6 +63,8 @@ export type SolanaRpcMethods = GetAccountInfoApi &
     MinimumLedgerSlotApi &
     RequestAirdropApi &
     SendTransactionApi;
+
+export type { Commitment } from './common';
 
 export function createSolanaRpcApi(config?: Config): IRpcApi<SolanaRpcMethods> {
     return new Proxy({} as IRpcApi<SolanaRpcMethods>, {
