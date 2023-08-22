@@ -5,7 +5,7 @@ import { IRpcTransport } from './transports/transport-types';
  */
 export type IRpcApi<TRpcMethods> = {
     [MethodName in keyof TRpcMethods]: TRpcMethods[MethodName] extends Callable
-        ? (...rawParams: unknown[]) => RpcRequest<ReturnType<TRpcMethods[MethodName]>>
+        ? (...rawParams: Parameters<TRpcMethods[MethodName]>) => RpcRequest<ReturnType<TRpcMethods[MethodName]>>
         : never;
 };
 export type Rpc<TRpcMethods> = RpcMethods<TRpcMethods>;
@@ -40,10 +40,10 @@ type PendingRpcRequestBuilder<TMethodImplementations> = UnionToIntersection<
     Flatten<{
         // Check that this property of the TRpcMethods interface is, in fact, a function.
         [P in keyof TMethodImplementations]: TMethodImplementations[P] extends Callable
-            ? (
-                  ...args: Parameters<TMethodImplementations[P]>
-              ) => PendingRpcRequest<ReturnType<TMethodImplementations[P]>>
-            : never;
+        ? (
+            ...args: Parameters<TMethodImplementations[P]>
+        ) => PendingRpcRequest<ReturnType<TMethodImplementations[P]>>
+        : never;
     }>
 >;
 
