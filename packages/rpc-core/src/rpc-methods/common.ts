@@ -29,6 +29,15 @@ export type Slot = U64UnsafeBeyond2Pow53Minus1;
 // the JSON-RPC transport.
 export type U64UnsafeBeyond2Pow53Minus1 = bigint;
 
+// FIXME(solana-labs/solana/issues/30341)
+// <https://stackoverflow.com/questions/45929493/node-js-maximum-safe-floating-point-number/57225494#57225494>
+// Beware that floating-point value precision can vary widely:
+// - For precision of 1 decimal place, anything above 562949953421311
+// - For precision of 2 decimal places, anything above 70368744177663
+// can be truncated or rounded because of a downcast to JavaScript `number` between your calling
+// code and the JSON-RPC transport.
+export type F64UnsafeSeeDocumentation = number;
+
 export type RpcResponse<TValue> = Readonly<{
     context: Readonly<{
         slot: Slot;
@@ -93,7 +102,7 @@ export type AccountInfoWithPubkey<TAccount extends AccountInfoBase> = Readonly<{
     pubkey: Base58EncodedAddress;
 }>;
 
-type TokenAmount = Readonly<{
+export type TokenAmount = Readonly<{
     amount: StringifiedBigInt;
     decimals: number;
     uiAmount: number | null;
