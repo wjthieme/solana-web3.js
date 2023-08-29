@@ -8,6 +8,10 @@ type Config = Readonly<{
 export function createWebSocketTransport({ url }: Config): IRpcWebSocketTransport {
     return async function ({ signal }: Parameters<IRpcWebSocketTransport>[0]) {
         signal.throwIfAborted();
-        return (await createWebSocketConnection({ signal, url })) as RpcWebSocketConnection;
+        return (await createWebSocketConnection({
+            sendBufferHighWatermark: 0,
+            signal,
+            url,
+        })) as RpcWebSocketConnection;
     };
 }
