@@ -1145,13 +1145,13 @@ describe('getAccountInfo', () => {
                                 type: 'vote',
                             },
                             program: 'vote',
-                            space: 3731n,
+                            space: 3762n,
                         },
                         executable: false,
                         lamports: 10290815n,
                         owner: 'Vote111111111111111111111111111111111111111',
                         rentEpoch: 0n,
-                        space: 3731n,
+                        space: 3762n,
                     },
                 });
             });
