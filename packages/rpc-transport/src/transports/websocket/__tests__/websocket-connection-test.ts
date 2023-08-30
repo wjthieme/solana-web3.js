@@ -1,4 +1,5 @@
 import WS from 'jest-websocket-mock';
+import { Client } from 'mock-socket';
 
 import { createWebSocketConnection, RpcWebSocketConnection } from '../websocket-connection';
 
