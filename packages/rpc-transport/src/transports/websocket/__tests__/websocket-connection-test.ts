@@ -5,6 +5,48 @@ import { createWebSocketConnection, RpcWebSocketConnection } from '../websocket-
 
 const MOCK_SEND_BUFFER_HIGH_WATERMARK = 42069;
 
+describe('createWebSocketConnection', () => {
+    let ws: WS;
+    function getLatestClient() {
+        const clients = ws.server.clients();
+        return clients[clients.length - 1];
+    }
+    beforeEach(async () => {
+        ws = new WS('wss://fake', {
+            jsonProtocol: true,
+        });
+    });
+    afterEach(() => {
+        WS.clean();
+    });
+    it('does not resolve until the socket is open', async () => {
+        expect.assertions(2);
+        const connectionPromise = createWebSocketConnection({
+            sendBufferHighWatermark: 0,
+            signal: new AbortController().signal,
+            url: 'wss://fake',
+        });
+        const client = getLatestClient();
+        expect(client).toHaveProperty('readyState', WebSocket.CONNECTING);
+        await connectionPromise;
+        expect(client).toHaveProperty('readyState', WebSocket.OPEN);
+    });
+    // https://github.com/thoov/mock-socket/issues/384
+    it.failing('throws when the connection is aborted before the connection is established', async () => {
+        expect.assertions(1);
+        const abortController = new AbortController();
+        const connectionPromise = createWebSocketConnection({
+            sendBufferHighWatermark: 0,
+            signal: abortController.signal,
+            url: 'wss://fake',
+        });
+        const client = getLatestClient();
+        expect(client).toHaveProperty('readyState', WebSocket.CONNECTING);
+        abortController.abort();
+        await expect(connectionPromise).rejects.toThrow();
+    });
+});
+
 describe('RpcWebSocketConnection', () => {
     let abortController: AbortController;
     let connection: RpcWebSocketConnection;
@@ -27,18 +69,6 @@ describe('RpcWebSocketConnection', () => {
     });
     afterEach(() => {
         WS.clean();
-    });
-    it('does not resolve until the socket is open', async () => {
-        expect.assertions(2);
-        const freshConnectionPromise = createWebSocketConnection({
-            sendBufferHighWatermark: 0,
-            signal: abortController.signal,
-            url: 'wss://fake',
-        });
-        const client = getLatestClient();
-        expect(client).toHaveProperty('readyState', WebSocket.CONNECTING);
-        await freshConnectionPromise;
-        expect(client).toHaveProperty('readyState', WebSocket.OPEN);
     });
     it('vends a message to consumers who have already polled for a result', async () => {
         expect.assertions(2);

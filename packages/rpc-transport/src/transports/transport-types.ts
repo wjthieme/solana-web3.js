@@ -1,5 +1,3 @@
-import { RpcWebSocketConnection } from './websocket/websocket-connection';
-
 type RpcTransportConfig = Readonly<{
     payload: unknown;
     signal?: AbortSignal;
@@ -10,9 +8,10 @@ export interface IRpcTransport {
 }
 
 type RpcWebSocketTransportConfig = Readonly<{
+    payload: unknown;
     signal: AbortSignal;
 }>;
 
 export interface IRpcWebSocketTransport {
-    (config: RpcWebSocketTransportConfig): Promise<RpcWebSocketConnection>;
+    (config: RpcWebSocketTransportConfig): Promise<AsyncIterable<unknown>>;
 }
