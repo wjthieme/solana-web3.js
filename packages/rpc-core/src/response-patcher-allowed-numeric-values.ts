@@ -1,8 +1,14 @@
 import { KeyPath } from './response-patcher';
 import { KEYPATH_WILDCARD } from './response-patcher-types';
 import { createSolanaRpcApi } from './rpc-methods';
+import { createSolanaRpcSubscriptionsApi } from './rpc-subscriptions';
 
-type AllowedNumericKeypaths = Partial<Record<keyof ReturnType<typeof createSolanaRpcApi>, readonly KeyPath[]>>;
+type AllowedNumericKeypaths = Partial<
+    Record<
+        keyof (ReturnType<typeof createSolanaRpcApi> & ReturnType<typeof createSolanaRpcSubscriptionsApi>),
+        readonly KeyPath[]
+    >
+>;
 
 let memoizedKeypaths: AllowedNumericKeypaths;
 

@@ -1,6 +1,7 @@
 import { getAllowedNumericKeypaths } from './response-patcher-allowed-numeric-values';
 import { KEYPATH_WILDCARD, KeyPathWildcard } from './response-patcher-types';
 import { createSolanaRpcApi } from './rpc-methods';
+import { createSolanaRpcSubscriptionsApi } from './rpc-subscriptions';
 
 export type KeyPath = ReadonlyArray<KeyPathWildcard | number | string | KeyPath>;
 // FIXME(https://github.com/microsoft/TypeScript/issues/33014)
@@ -45,7 +46,7 @@ function visitNode<T>(value: unknown, allowedKeypaths: readonly KeyPath[]): T {
 
 export function patchResponseForSolanaLabsRpc<T>(
     rawResponse: unknown,
-    methodName?: keyof ReturnType<typeof createSolanaRpcApi>
+    methodName?: keyof (ReturnType<typeof createSolanaRpcApi> & ReturnType<typeof createSolanaRpcSubscriptionsApi>)
 ): T {
     const allowedKeypaths = methodName ? getAllowedNumericKeypaths()[methodName] : undefined;
     return visitNode(rawResponse, allowedKeypaths ?? []);
