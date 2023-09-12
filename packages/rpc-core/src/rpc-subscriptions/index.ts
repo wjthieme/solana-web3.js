@@ -8,7 +8,7 @@ type Config = Readonly<{
     onIntegerOverflow?: (methodName: string, keyPath: (number | string)[], value: bigint) => void;
 }>;
 
-export type SolanaRpcSubscriptions = never;
+export type SolanaRpcSubscriptions = SlotNotificationsApi;
 
 export function createSolanaRpcSubscriptionsApi(config?: Config): IRpcSubscriptionsApi<SolanaRpcSubscriptions> {
     return new Proxy({} as IRpcSubscriptionsApi<SolanaRpcSubscriptions>, {
