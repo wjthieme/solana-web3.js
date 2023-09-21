@@ -1,7 +1,7 @@
 {
-    "name": "@solana/rpc-core",
+    "name": "@solana/functional",
     "version": "2.0.0-development",
-    "description": "A library for making calls to the Solana JSON RPC API",
+    "description": "Functional JavaScript helpers",
     "exports": {
         "browser": {
             "import": "./dist/index.browser.js",
@@ -33,9 +33,9 @@
         "web3"
     ],
     "scripts": {
-        "compile:js": "tsup --config build-scripts/tsup.config.package.ts",
+        "compile:js": "tsup --config build-scripts/tsup.config.library.ts",
         "compile:typedefs": "tsc -p ./tsconfig.declarations.json",
-        "dev": "jest -c node_modules/test-config/jest-dev.config.ts --globalSetup test-config/test-validator-setup.js --globalTeardown test-config/test-validator-teardown.js --rootDir . --watch",
+        "dev": "jest -c node_modules/test-config/jest-dev.config.ts --rootDir . --watch",
         "prepublishOnly": "version-from-git --no-git-tag-version --template experimental.short",
         "publish-packages": "pnpm publish --tag experimental --access public --no-git-checks",
         "style:fix": "pnpm eslint --fix src/* && pnpm prettier -w src/*",
@@ -45,8 +45,8 @@
         "test:treeshakability:native": "agadoo dist/index.node.js",
         "test:treeshakability:node": "agadoo dist/index.native.js",
         "test:typecheck": "tsc --noEmit",
-        "test:unit:browser": "jest -c node_modules/test-config/jest-unit.config.browser.ts --globalSetup test-config/test-validator-setup.js --globalTeardown test-config/test-validator-teardown.js --rootDir . --silent",
-        "test:unit:node": "jest -c node_modules/test-config/jest-unit.config.node.ts --globalSetup test-config/test-validator-setup.js --globalTeardown test-config/test-validator-teardown.js --rootDir . --silent"
+        "test:unit:browser": "jest -c node_modules/test-config/jest-unit.config.browser.ts --rootDir . --silent",
+        "test:unit:node": "jest -c node_modules/test-config/jest-unit.config.node.ts --rootDir . --silent"
     },
     "author": "Solana Labs Maintainers <maintainers@solanalabs.com>",
     "license": "MIT",
@@ -61,30 +61,22 @@
         "supports bigint and not dead",
         "maintained node versions"
     ],
-    "dependencies": {
-        "@metaplex-foundation/umi-serializers": "^0.8.9"
-    },
     "devDependencies": {
         "@solana/eslint-config-solana": "^1.0.2",
-        "@solana/addresses": "workspace:*",
-        "@solana/rpc-transport": "workspace:*",
-        "@solana/transactions": "workspace:*",
         "@swc/jest": "^0.2.28",
         "@types/jest": "^29.5.5",
-        "@typescript-eslint/eslint-plugin": "^6.7.0",
+        "@typescript-eslint/eslint-plugin": "^6.3.0",
         "@typescript-eslint/parser": "^6.3.0",
         "agadoo": "^3.0.0",
         "build-scripts": "workspace:*",
         "eslint": "^8.45.0",
-        "eslint-plugin-jest": "^27.2.3",
         "eslint-plugin-sort-keys-fix": "^1.1.2",
         "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.6.4",
-        "jest-fetch-mock-fork": "^3.0.4",
         "jest-runner-eslint": "^2.1.0",
         "jest-runner-prettier": "^1.0.0",
         "prettier": "^2.8",
         "test-config": "workspace:*",
+        "test-matchers": "workspace:*",
         "tsconfig": "workspace:*",
         "tsup": "7.2.0",
         "typescript": "^5.2.2",
