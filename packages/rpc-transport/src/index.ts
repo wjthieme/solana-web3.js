@@ -1,3 +1,4 @@
+export * from './apis/api-types';
 export * from './json-rpc';
 export * from './json-rpc-subscription';
 export * from './transports/http/http-transport';
