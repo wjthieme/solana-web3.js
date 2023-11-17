@@ -1,5 +1,3 @@
-import { CodecData } from './codec';
-
 /**
  * Asserts that a given byte array is not empty.
  */
@@ -30,7 +28,7 @@ export function assertByteArrayHasEnoughBytesForCodec(
  * Asserts that a given codec is fixed-size codec.
  */
 export function assertFixedSizeCodec(
-    data: Pick<CodecData, 'fixedSize'>,
+    data: { fixedSize: number | null },
     message?: string
 ): asserts data is { fixedSize: number } {
     if (data.fixedSize === null) {
