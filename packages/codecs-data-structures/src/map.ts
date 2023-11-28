@@ -3,7 +3,7 @@ import { getU32Decoder, getU32Encoder, NumberCodec, NumberDecoder, NumberEncoder
 
 import {
     ArrayLikeCodecSize,
-    decodeArrayLikeCodecSize,
+    readArrayLikeCodecSize,
     getArrayLikeCodecSizeDescription,
     getArrayLikeCodecSizeFromChildren,
     getArrayLikeCodecSizePrefix,
@@ -83,7 +83,7 @@ export function getMapDecoder<K, V>(
             if (typeof size === 'object' && bytes.slice(offset).length === 0) {
                 return [map, offset];
             }
-            const [resolvedSize, newOffset] = decodeArrayLikeCodecSize(
+            const [resolvedSize, newOffset] = readArrayLikeCodecSize(
                 size,
                 [key.fixedSize, value.fixedSize],
                 bytes,

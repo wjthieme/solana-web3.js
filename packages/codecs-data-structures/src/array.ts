@@ -3,7 +3,7 @@ import { getU32Decoder, getU32Encoder, NumberCodec, NumberDecoder, NumberEncoder
 
 import {
     ArrayLikeCodecSize,
-    decodeArrayLikeCodecSize,
+    readArrayLikeCodecSize,
     getArrayLikeCodecSizeDescription,
     getArrayLikeCodecSizeFromChildren,
     getArrayLikeCodecSizePrefix,
@@ -65,7 +65,7 @@ export function getArrayDecoder<T>(item: Decoder<T>, config: ArrayCodecConfig<Nu
             if (typeof size === 'object' && bytes.slice(offset).length === 0) {
                 return [[], offset];
             }
-            const [resolvedSize, newOffset] = decodeArrayLikeCodecSize(size, [item.fixedSize], bytes, offset);
+            const [resolvedSize, newOffset] = readArrayLikeCodecSize(size, [item.fixedSize], bytes, offset);
             offset = newOffset;
             const values: T[] = [];
             for (let i = 0; i < resolvedSize; i += 1) {
